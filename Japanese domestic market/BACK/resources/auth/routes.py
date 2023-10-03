@@ -8,11 +8,11 @@ auth = Blueprint('auth',__name__, url_prefix= '/auth') #el prefijo sirve para de
 @auth.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    email = data.get('email')
+    username = data.get('username')
     password = data.get('password')
 
     #Solicito que la base de datos liste el primer email que coincida con el ingreso
-    usernameDB =User.query.filter_by(email=email).first()
+    usernameDB = User.query.filter_by(username=username).first()
     role = usernameDB.role #de ese email o user trae el role
     if usernameDB and usernameDB.password == password:
         # response = {'message': 'Login successful'}
@@ -24,12 +24,12 @@ def login():
 @auth.route('/signup',methods=['POST'])
 def signup():
     data = request.get_json()
-    fullname = request.json('fullname')
-    email = request.json('email')
-    username = request.json('username')
-    password = request.json('password')
+    fullname = request.json['fullname']
+    email = request.json['email']
+    username = request.json['username']
+    password = request.json['password']
     role = "2"
-    print(data, fullname, email, username, password, role)
+    # print(data, fullname, email, username, password, role)
     # confirm_psw = data.get('confirm_psw')
 # trae los datos que ingresamos en el login
     user = User(fullname=fullname, email=email, username=username, password=password, role=role) #lo va asignando

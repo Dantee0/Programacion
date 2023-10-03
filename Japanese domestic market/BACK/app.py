@@ -24,6 +24,11 @@ migrate.init_app(app,db)
 #Blueprint
 app.register_blueprint(auth)
 
+@app.route('/')
+# @auth.login_required
+def home():
+    print('home')
+    return jsonify({'message': 'Home'})
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -36,6 +36,7 @@ export const Login = () => {
         role: role
       })
       navigate('/market')
+      console.log('Registro exitoso')
     } catch (error) {
       console.log(error)
     }

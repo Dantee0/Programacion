@@ -5,7 +5,7 @@ from models.User import User
 auth = Blueprint('auth',__name__, url_prefix= '/auth') #el prefijo sirve para decirle al front donde ir
 
 
-@auth.route('/login', methods=['POST'])
+@auth.route('/login', methods=['POST']) #endpoint
 def login():
     data = request.get_json()
     username = data.get('username')
@@ -21,7 +21,7 @@ def login():
         response = {'message': 'Error'}
         return jsonify(response), 401
     
-@auth.route('/signup',methods=['POST'])
+@auth.route('/register',methods=['POST'])
 def signup():
     data = request.get_json()
     fullname = request.json['fullname']

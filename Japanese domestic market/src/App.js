@@ -12,7 +12,7 @@ import { UserContext } from './context/UserContext';
 
 function App () {
   
-  const [user, setUser] = useState({
+  const [user, setUser] = useState({  /*Hook*/
     role: '',
     logged: false
   })

@@ -13,7 +13,7 @@ export const PrivateRoutes = () => {
         {/* en las rutas privadas van los componentes */}
         <Route path='/market' element={ <Market />} />
         <Route path='/myPosts' element={ <MyPosts />} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path='/*' element={<Navigate to='/' replace />} ></Route>
     </Routes>
   )
 }

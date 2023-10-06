@@ -16,7 +16,7 @@ export const Navbar = () => {
     return (
       <div>
           <nav className="navbar navbar-expand-lg navbar-light" data-bs-theme="dark">
-              <a className="navbar-braknd" href="/home" > <img src={ logo }  alt="" width="70px" height="70px" /></a> 
+              <Link className="navbar-braknd" to="/home" > <img src={ logo }  alt="" width="70px" height="70px" /></Link> 
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
           </button>
@@ -26,11 +26,8 @@ export const Navbar = () => {
                 // administrador
                 user.role === '1' ? (
                     <ul className="navbar-nav ms-auto">
-                        <li className="nav-item" href="#top">
-                            <Link className="nav-link active" to="/home">Inicio</Link>
-                        </li>
                         <li className="nav-item">
-                            <Link className="nav-link active" exact='true' to="/userList">Usuarios Registrados</Link>
+                            <Link className="nav-item" exact='true' to="/myPosts">Publicaciones</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link active" exact='true' to="/market">Mercado</Link>
@@ -42,9 +39,6 @@ export const Navbar = () => {
                     // usuario
                 ) : user.role === '2' ? (
                     <ul className="navbar-nav ms-auto">
-                        <li className="nav-item" href="#top">
-                            <Link className="nav-link active" to="/home">Inicio</Link>
-                        </li>
                         {/* <li className="nav-item">
                             <Link className="nav-link active" exact='true' to="/publications">Mis publicaciones</Link>
                         </li> */}

@@ -19,9 +19,9 @@ export const Register = () => {
     password: ''
   }
 
-  const handleRegister = async(values) => {
+  const handleRegister = async(values) => {  /*se conecta con el back, mediante el post envia informacion*/
     try {
-      const response = await axios.post('http://localhost:5000/auth/register', values)
+      const response = await axios.post('http://localhost:5000/auth/register', values) /* post recibe */
       console.log(response.data)
       const { role } = response.data
       console.log('role', role)
@@ -31,10 +31,12 @@ export const Register = () => {
         showConfirmButton: false,
         timer: 1800
       })
+     
       setUser({
         logged: true,
         role: role
       })
+      console.log('Registro exitoso 2 ')
       navigate('/market')
     } catch (error) {
       console.log(error)

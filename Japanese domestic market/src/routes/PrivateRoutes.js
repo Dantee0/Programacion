@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Routes, Navigate } from 'react-router-dom'
 
+import { Home } from '../components/Home'
 import { CarsForm } from '../components/CarsForm'
 import { Market } from '../components/Market'
 import { MyPosts } from '../components/MyPosts'
@@ -8,6 +9,8 @@ import { MyPosts } from '../components/MyPosts'
 export const PrivateRoutes = () => {
   return (
     <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path='/carsform' element={ <CarsForm />} />
         {/* crear ruta para inventario de autos con precios, otra para "mis autos publicados/mis publicaciones" */}
         {/* en las rutas privadas van los componentes */}

@@ -2,8 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top:250px;
-  margin-bottom:350px;
 }
   
 .form {
@@ -12,6 +10,8 @@
   align-items: center; 
   transform-style: preserve-3d;
   transition: all 1s ease;
+  margin-top:250px;
+  margin-bottom:350px;
 }
   
 .form .form_front {

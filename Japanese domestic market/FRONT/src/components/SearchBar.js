@@ -10,7 +10,7 @@ export const SearchBar = (setResults) => {
     //     console.log(data);
     // }
     const fetchData = (value) => {
-        fetch('http://localhost:3001/market')
+        fetch('http://localhost:3001/cars')
         .then((response) => response.json()) //convierte la rta en formato json
         .then((json) => {
             const results = json.filter((car) => {

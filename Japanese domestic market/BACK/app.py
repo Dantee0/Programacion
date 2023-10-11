@@ -1,11 +1,14 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_migrate import Migrate
+from flask_restful import Api
 from database import *
 from models.User import User
+from resources.Car import CarsList
 from resources.auth.routes import auth  
 
-app = Flask(__name__)
+app = Flask(__name__) #Instancia del app de Flask
+api = Api(app) #Instancia la api importada
 CORS(app)
 
 #Indico que url utilizara SQLALCHEMY para conectarse a la base de datos
@@ -24,8 +27,10 @@ migrate.init_app(app,db)
 #Blueprint
 app.register_blueprint(auth)
 
+#Resources
+api.add_resource(CarsList, '/cars') #agrega recurso
+
 @app.route('/')
-# @auth.login_required
 def home():
     print('home')
     return jsonify({'message': 'Home'})

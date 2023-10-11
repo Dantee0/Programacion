@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import './Login.css'
+import './login.css'
 import { Field, Form, Formik } from 'formik'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +13,7 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const initialValues = {
-    email:'',
+    username:'',
     password:''
   }
 
@@ -35,8 +35,7 @@ export const Login = () => {
         logged: true,
         role: role
       })
-      navigate('/market')
-      console.log('Registro exitoso')
+      navigate('/home')
     } catch (error) {
       console.log(error)
     }

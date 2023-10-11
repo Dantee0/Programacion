@@ -20,6 +20,8 @@ export const Market = () => {
           <SearchResultsList results={results} />
         </div> */}
 
+        <h2 className='text-light'>Autos disponibles</h2>
+
         <CarsList />
     </div>
   )

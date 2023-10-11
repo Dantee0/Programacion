@@ -22,15 +22,15 @@ def login():
         return jsonify(response), 401
     
 @auth.route('/register',methods=['POST'])
-def signup():
-    data = request.get_json()
+def register():
+    # data = request.get_json()
     fullname = request.json['fullname']
     email = request.json['email']
     username = request.json['username']
     password = request.json['password']
     role = "2"
     # print(data, fullname, email, username, password, role)
-    # confirm_psw = data.get('confirm_psw')
+
 # trae los datos que ingresamos en el login
     user = User(fullname=fullname, email=email, username=username, password=password, role=role) #lo va asignando
     db.session.add(user) #los agrega a la tabla user

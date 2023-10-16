@@ -1,6 +1,6 @@
 # Base de datos
 migrations/
-database.py
+*.database
 
 # Byte-compiled / optimized / DLL files
 node_modules/

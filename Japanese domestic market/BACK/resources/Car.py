@@ -31,6 +31,6 @@ class CarsList(Resource):
                 'price': car.price,
                 'availability': car.availability
             })
-            response = jsonify(result)
-            response.status_code = 200
-            return response
+        response = jsonify(result)
+        response.status_code = 200
+        return response

@@ -28,7 +28,7 @@ return (
     <div>
         <div className='row justify-content-center text-center'>
             <div className='col-md-6'>
-                <table className="table table-info table-hover">
+                <table className="table table-secondary table-hover">
                         <thead>
                            <tr>
                                <th scope="col">Marca</th>

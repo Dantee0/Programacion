@@ -47,7 +47,7 @@ return (
                                        <td>{car.model}</td>
                                        <td>{car.description}</td>
                                        <td>{car.price}</td>
-                                       <td>{car.availability}</td>
+                                       <td>{car.availability === true ? 'Disponible' : 'Vendido'}</td>
                                        {
                                            // usuario comun solo puede comprar?
                                            user.role === '2' ? (

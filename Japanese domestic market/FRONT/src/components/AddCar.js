@@ -13,7 +13,7 @@ export const AddCar = () => {
         model: '',
         description: '',
         price:'',
-        available: true,
+        availability: true,
     }
 
     const handleSubmit = async( values) => {
@@ -81,17 +81,6 @@ export const AddCar = () => {
                         name='price'
                         />
                         <label htmlFor="floatingInput">Precio del auto</label>
-                    </div>
-                    <div className="form-check form-switch text-light m-2">
-                        <Field 
-                        type="checkbox" 
-                        className="form-check-input"
-                        role="switch" 
-                        id="flexSwitchCheckDefault" 
-                        // placeholder="Disponible"
-                        name='availability'
-                        />
-                        <label htmlFor="flexSwitchCheckDefault">Disponible</label>
                     </div>
                     <button className="btn btn-primary w-100 py-2" type="submit" onClick={handleSubmit}>Añadir auto</button>
                 </Form>

@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './login.css'
 import { Field, Form, Formik } from 'formik'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { UserContext } from '../context/UserContext';
 
 export const Register = () => {
+  
+  const { setUser } = useContext(UserContext);
 
-  const { user,setUser } = useContext(UserContext); /*es la linea mas importante */
-    
   const navigate = useNavigate();
 
   const initialValues = {
@@ -17,13 +19,25 @@ export const Register = () => {
     password: ''
   }
 
-  const handleForm = async(values) => {
+  const handleRegister = async(values) => {  /*se conecta con el back, mediante el post envia informacion*/
     try {
-      const response = await axios.post('http://localhost:5000/auth/signup', values)
+      const response = await axios.post('http://localhost:5000/auth/register', values) /* post recibe */
       console.log(response.data)
-      const { role } = response.data /* es para guardar el role */
-      console.log('role', role) /* ve si vino el role o no */
-      navigate('/home')
+      const { role } = response.data
+      console.log('role', role)
+      Swal.fire({
+        icon: 'success',
+        title: 'Registro exitoso',
+        showConfirmButton: false,
+        timer: 1800
+      })
+     
+      setUser({
+        logged: true,
+        role: role
+      })
+      console.log('Registro exitoso 2 ')
+      navigate('/market')
     } catch (error) {
       console.log(error)
     }
@@ -35,7 +49,7 @@ export const Register = () => {
         <input type="checkbox" id="signup_toggle"  />
       <Formik
       initialValues={initialValues}
-      onSubmit={handleForm}
+      onSubmit={handleRegister}
       >
         <Form className="form">
             <div className="form_front">
@@ -68,14 +82,7 @@ export const Register = () => {
                 name="password"
                 />
 
-                {/* <Field 
-                placeholder="Confirm Password" 
-                className="input" 
-                type="password" 
-                name="confirm_password"
-                /> */}
-
-                <button className="btn" type='submit' onClick={handleForm}>Sign Up</button>
+                <button className="btn" type='submit' onClick={handleRegister}>Sign Up</button>
             </div>
         </Form>
       </Formik>

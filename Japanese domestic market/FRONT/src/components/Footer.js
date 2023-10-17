@@ -11,7 +11,7 @@ export const Footer = () => {
             <footer>
                 <p>Programación 2023 | AGM - DI</p> 
                 <section>
-                    <a className="btn btn-outline-light btn-floating m-1" href="https://github.com/gvrl1/Programacion_1.git" role="button" target="__blank">
+                    <a className="btn btn-outline-light btn-floating m-1" href="https://github.com/Dantee0/Programacion" role="button" target="__blank">
                         <i className="fab fa-github"><FaGithub /></i>
                     </a>
                 </section>

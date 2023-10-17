@@ -4,20 +4,20 @@ import { UserContext } from '../context/UserContext';
 
 export const CarsList = () => {
 
-    const { user } = useContext(UserContext);
+    const { user } = useContext(UserContext); //usercontext contiene el rol
 
-    const [cars, setCars] = useState([]);
+    const [cars, setCars] = useState([]); //useState es un hook, cars es el estado, setCars es la funcion que modifica el estado
 
-    useEffect(() => {
-        fetchCar();
+    useEffect(() => { //este hook renderiza cosas, da vida al componente, useEffect sirve para conectarnos con el exterior, se activa cdo abrimos/se renderiza/se carga el componente
+        fetchCar(); //este hook llama al fetch car
       }, []);
 
       
     const fetchCar = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/cars');
+            const response = await axios.get('http://localhost:5000/cars'); //llamamos a la api para traer los datos
             console.log(response)
-            setCars(response.data);
+            setCars(response.data); //carga los datos en setcars
         } catch (error) {
             console.error(error);
         }

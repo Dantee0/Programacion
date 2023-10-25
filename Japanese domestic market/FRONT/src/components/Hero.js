@@ -4,7 +4,7 @@ import { transparentize } from 'polished';
 function Hero() {
   return (
     <div className='p-5 text-center bg-image' 
-         style={{ backgroundImage: 'url(/img/fondo1.webp)', 
+         style={{ backgroundImage: 'url(../img/fondo1.webp)', 
          height: '500px', 
          backgroundRepeat: 'no-repeat', 
          backgroundPosition: 'center', 
@@ -14,7 +14,7 @@ function Hero() {
                 <div className='text-white'>
                     <h1 className='mb-3 fw-bold' style={{ fontSize: '50px' }}>JDM Zone</h1>
                     <h4 className='mb-3'>Marketplace especializado en automóviles de origen japonés.</h4>
-                    <a className='btn btn-outline-light btn-lg m-2' href='/carsform' role='button'>Conocer más</a>
+                    <a className='btn btn-outline-light btn-lg m-2' href='/market' role='button'>Conocer más</a>
                 </div>
             </div>
         </div>

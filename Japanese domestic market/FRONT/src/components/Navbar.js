@@ -18,7 +18,7 @@ export const Navbar = () => {
 
     return (
       <div>
-          <nav className="navbar navbar-expand-lg navbar-light" data-bs-theme="dark">
+          <nav className="navbar navbar-expand-lg navbar-light bg-black" data-bs-theme="dark">
               <Link className="navbar-braknd" to="/home" > <img src={ logo }  alt="" width="70px" height="70px" /></Link> 
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
@@ -73,7 +73,7 @@ export const Navbar = () => {
                     <li className="nav-item">
                         <Link className="nav-link active" exact='true' to="/register">Registrarse</Link>
                     </li>
-                    <li className='nav-item'> <a href="#" className="nav-link active">Acerca de</a> </li>
+                    <li className='nav-item'> <a href="#about-us" className="nav-link active">Acerca de</a> </li>
                     <li className='nav-item'> <a href="#contact" className="nav-link active">Contacto</a> </li>
                 </ul>
                 )

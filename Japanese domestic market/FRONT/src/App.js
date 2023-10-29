@@ -14,7 +14,8 @@ function App () {
   
   const [user, setUser] = useState({  /*Hook*/
     role: '',
-    logged: false
+    logged: false,
+    id: ''
   })
 
   return (

@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { UserContext } from '../context/UserContext';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 export const CarsList = () => {
 
-    const { user } = useContext(UserContext); //usercontext contiene el rol
+    const { user } = useContext(UserContext); //usercontext contiene el rol, puedo acceder a todos los componentes que tiene user
 
     const [cars, setCars] = useState([]); //useState es un hook, cars es el estado, setCars es la funcion que modifica el estado
+
+    const navigate = useNavigate();
 
     useEffect(() => { //este hook renderiza cosas, da vida al componente, useEffect sirve para conectarnos con el exterior, se activa cdo abrimos/se renderiza/se carga el componente
         fetchCar(); //este hook llama al fetch car
@@ -20,6 +24,29 @@ export const CarsList = () => {
             setCars(response.data); //carga los datos en setcars
         } catch (error) {
             console.error(error);
+        }
+    };
+
+    //Comprar auto
+    const onAddCar = async (carId) => {
+        
+        const values = { //segun el modelo que tengo, necesito estos valores
+            userId: user.id,
+            carId: carId
+        }
+
+        try {
+            const response = await axios.post('http://localhost:5000/shoppingcarts', values) //post envia la informacion de values(guarda en DB)
+            console.log(response.data)
+            Swal.fire({
+                icon: 'success',
+                title: 'Solicitud de compra realizada con éxito',
+                showConfirmButton: false,
+                timer: 1800
+            })
+            navigate('/market')
+        } catch (error) {
+            console.log(error);
         }
     };
     
@@ -50,10 +77,10 @@ return (
                                        <td>{car.availability === true ? 'Disponible' : 'Vendido'}</td>
                                        {
                                            // usuario comun solo puede comprar?
-                                           user.role === '2' ? (
+                                           user.role === '2' ? ( //puedo acceder al rol ya que está aclarado en App.js los valores a los que pueden acceder todas las rutas(role,id, etc)
                                                <div>
                                                    <td> 
-                                                       <button type="button" className="btn btn-success" > Comprar </button>
+                                                       <button type="button" className="btn btn-success" onClick={() => onAddCar(car.id)}> Comprar </button>
                                                    </td>
                                                </div>
                                            // admin puede editar y eliminar

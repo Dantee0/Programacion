@@ -45,9 +45,6 @@ export const Navbar = () => {
                     // usuario
                 ) : user.role === '2' ? (
                     <ul className="navbar-nav ms-auto">
-                        {/* <li className="nav-item">
-                            <Link className="nav-link active" exact='true' to="/publications">Mis publicaciones</Link>
-                        </li> */}
                         <li className="nav-item">
                             <Link className="nav-link active" exact='true' to="/market">Mercado</Link>
                         </li>
@@ -56,6 +53,9 @@ export const Navbar = () => {
                         </li> */}
                         <li className="nav-item">
                             <Link className="nav-link active" exact='true' to="/myPosts">Mis publicaciones</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link active" exact='true' to="/shoppingCart">Mis compras</Link>
                         </li>
                         <li className="nav-item" href="#top">
                             <Link className="nav-link active" to="/" onClick={handleLogOut}>Salir</Link>

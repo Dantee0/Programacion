@@ -14,9 +14,10 @@ def login():
     #Solicito que la base de datos liste el primer email que coincida con el ingreso
     usernameDB = User.query.filter_by(username=username).first()
     role = usernameDB.role #de ese email o user trae el role
+    idUser = usernameDB.id
     if usernameDB and usernameDB.password == password:
         # response = {'message': 'Login successful'}
-        return jsonify(role=role), 200
+        return jsonify(role=role, idUser=idUser), 200
     else:
         response = {'message': 'Error'}
         return jsonify(response), 401
@@ -35,4 +36,9 @@ def register():
     user = User(fullname=fullname, email=email, username=username, password=password, role=role) #lo va asignando
     db.session.add(user) #los agrega a la tabla user
     db.session.commit() #los guarda en la tabla
-    return jsonify(role=role), 200
+
+#obtengo el id del usuario a partir del email que se registró
+    registeredUsername = User.query.filter_by(username=username).first()
+    idUser = registeredUsername.id
+
+    return jsonify(role=role, idUser=idUser), 200

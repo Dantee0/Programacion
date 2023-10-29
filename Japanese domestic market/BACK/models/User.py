@@ -8,7 +8,7 @@ class User(db.Model):
     password = db.Column(db.String(250), nullable=False, unique=True)
     role = db.Column(db.String(250)) #es para ver si es adiministrador o usuario
 
-    userPosts = db.relationship('Post', backref='user')
+    userShoppingCart = db.relationship('ShoppingCart', backref='user')
 
 
     #Metodo str permite obtener representacion de la clase User

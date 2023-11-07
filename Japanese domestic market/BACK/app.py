@@ -4,7 +4,7 @@ from flask_migrate import Migrate
 from flask_restful import Api
 from database import *
 from models.User import User
-from resources.Car_resources import CarsList
+from resources.Car_resources import CarsList, CarList
 from resources.ShoppingCart_resources import ShoppingCartList, ShoppingCartsList
 from resources.auth.routes import auth  
 
@@ -30,6 +30,7 @@ app.register_blueprint(auth)
 
 #Resources
 api.add_resource(CarsList, '/cars') #agrega recurso
+api.add_resource(CarList, '/car/<int:id>')
 api.add_resource(ShoppingCartsList, '/shoppingcarts')
 api.add_resource(ShoppingCartList, '/shoppingcart/<int:id>') 
 

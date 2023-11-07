@@ -8,6 +8,7 @@ import { Route, Routes } from 'react-router-dom';
 import { PublicRoutes } from './routes/PublicRoutes';
 import { PrivateRoutes } from './routes/PrivateRoutes';
 import { UserContext } from './context/UserContext';
+import { Contact } from './components/Contact';
 
 
 function App () {
@@ -31,6 +32,7 @@ function App () {
             )
           }
         </Routes> 
+        <Contact />
         <Footer />
       </UserContext.Provider>
     </div>

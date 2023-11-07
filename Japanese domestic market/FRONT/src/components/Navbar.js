@@ -18,7 +18,14 @@ export const Navbar = () => {
 
     return (
       <div>
-          <nav className="navbar navbar-expand-lg navbar-light bg-black" data-bs-theme="dark">
+          <nav className="navbar navbar-expand-lg navbar-light" data-bs-theme="dark" 
+            style={{ 
+                position: 'absolute',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                width: '97%',
+                margin: '0 20' }}>
               <Link className="navbar-braknd" to="/home" > <img src={ logo }  alt="" width="70px" height="70px" /></Link> 
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>

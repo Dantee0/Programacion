@@ -16,7 +16,7 @@ export const Footer = () => {
                     </a>
                 </section>
                 <section>
-                    <a id="contact" href="mailto:JDMZone@gmail.com">Contáctame aquí </a>
+                    
                     <a className="btn btn-outline-light btn-floating m-1" href="#top">
                         <i className="fas fa-arrow-up"><AiOutlineArrowUp /></i>
                     </a>

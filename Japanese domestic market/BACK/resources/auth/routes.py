@@ -37,7 +37,7 @@ def register():
     db.session.add(user) #los agrega a la tabla user
     db.session.commit() #los guarda en la tabla
 
-#obtengo el id del usuario a partir del email que se registró
+#obtengo el id del usuario a partir del username que se registró
     registeredUsername = User.query.filter_by(username=username).first()
     idUser = registeredUsername.id
 

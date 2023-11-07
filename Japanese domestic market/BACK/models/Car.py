@@ -8,7 +8,7 @@ class Car(db.Model):
     price = db.Column(db.Integer, nullable=False)
     availability = db.Column(db.Boolean, default=True)
     
-    CarShoppingCarts = db.relationship('ShoppingCart', backref='car')
+    CarShoppingCarts = db.relationship('ShoppingCart', backref='car', cascade='all, delete-orphan')
 
     def str(self):
         return (

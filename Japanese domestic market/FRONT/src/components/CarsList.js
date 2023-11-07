@@ -10,6 +10,8 @@ export const CarsList = () => {
 
     const [cars, setCars] = useState([]); //useState es un hook, cars es el estado, setCars es la funcion que modifica el estado
 
+    const [editedCar, setEditedCar] = useState({id: 0, model: '', brand: '', description: '', price: 0, availability: true})
+
     const navigate = useNavigate();
 
     useEffect(() => { //este hook renderiza cosas, da vida al componente, useEffect sirve para conectarnos con el exterior, se activa cdo abrimos/se renderiza/se carga el componente
@@ -50,6 +52,48 @@ export const CarsList = () => {
         }
     };
     
+    // Eliminar auto
+    const onDeleteCar = async (carId) => {
+        try {
+            await axios.delete(`http://localhost:5000/car/${carId}`);
+            fetchCar();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
+    // Editar auto
+
+    //carga los valores del auto en el formulario modal
+    const onEditCar = (car) => {
+        setEditedCar(car);
+    }
+
+    //actualiza los valores modificados del auto
+    const handleInputChange = (e) => {
+        console.log('valor de e.target.name', e.target.name)
+        console.log('valor de e.target.value', e.target.value)
+        setEditedCar({ ...editedCar, [e.target.name]: e.target.value});
+    };
+
+    //envia al back los valores modificados del auto
+    const handleUpdateCar = async () => {
+        try {
+            await axios.put(`http://localhost:5000/car/${editedCar.id}`, editedCar);
+            fetchCar();
+            setEditedCar({id: 0, model: '', brand: '', description: '', price: 0, availability: true});
+            Swal.fire({
+                icon: 'success',
+                title: 'Editado correctamente',
+                showConfirmButton: false,
+                timer: 1800
+            })
+            navigate('/market')
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
 return (
     <div>
@@ -87,10 +131,10 @@ return (
                                            ):(
                                                <div>
                                                    <td> 
-                                                       <button type="button" className="btn btn-warning"> Editar </button>
+                                                       <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editCarModal" onClick={() => onEditCar(car)}> Editar </button>
                                                    </td>
                                                    <td> 
-                                                       <button type="button" className="btn btn-danger"> Eliminar </button>
+                                                       <button type="button" className="btn btn-danger" onClick={() => onDeleteCar(car.id)}> Eliminar </button>
                                                    </td>  
                                                </div>
                                            )
@@ -117,6 +161,83 @@ return (
                         </li>
                     </ul>
                 </nav> */}
+                <div className='modal fade' id='editCarModal' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                    <div className='modal-dialog'>
+                        <div className='modal-content'>
+                            <div className='modal-header'>
+                                <h1 className='modal-title fs-5' id='exampleModalLabel'>Editar auto</h1>
+                                <button type='button' className='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                            </div>
+                            <div className='modal-body'>
+                                <div className='row'>
+                                    <div className='col-md-4'>
+                                        <label>Marca</label><br></br>
+                                        <input 
+                                            type='text' 
+                                            name='brand' 
+                                            className='form-control' 
+                                            placeholder='Marca' 
+                                            onChange={handleInputChange} 
+                                            value={editedCar.brand}
+                                        />
+                                    </div>
+                                    <div className='col-md-2'></div>
+                                    <div className='col-md-4'>
+                                        <label>Modelo</label><br></br>
+                                        <input 
+                                            type='text' 
+                                            name='model' 
+                                            className='form-control' 
+                                            placeholder='Modelo' 
+                                            onChange={handleInputChange} 
+                                            value={editedCar.model}
+                                        />
+                                    </div>
+                                    <div className='col-md-2'></div>
+                                    <div className='col-md-4'>
+                                        <label>Descripción</label><br></br>
+                                        <input 
+                                            type='text' 
+                                            name='description' 
+                                            className='form-control' 
+                                            placeholder='Descripción' 
+                                            onChange={handleInputChange} 
+                                            value={editedCar.description}
+                                        />
+                                    </div>
+                                    <div className='col-md-2'></div>
+                                    <div className='col-md-4'>
+                                        <label>Precio</label><br></br>
+                                        <input 
+                                            type='text' 
+                                            name='price' 
+                                            className='form-control' 
+                                            placeholder='Precio (USD)' 
+                                            onChange={handleInputChange} 
+                                            value={editedCar.price}
+                                        />
+                                    </div>
+                                    <div className='col-md-2'></div>
+                                    <div className='col-md-4'>
+                                        <label>Disponibilidad</label><br></br>
+                                        <input 
+                                            type='text' 
+                                            name='availability' 
+                                            className='form-control' 
+                                            placeholder='Disponibilidad' 
+                                            onChange={handleInputChange} 
+                                            value={editedCar.availability}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='modal-footer'>
+                                <button type='button' className='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>
+                                <button type='button' className='btn btn-success' data-bs-dismiss='modal' onClick={handleUpdateCar}>Guardar</button>
+                            </div>
+                        </div>
+                        </div>
+                </div>
                </div>
            </div>
         </div>

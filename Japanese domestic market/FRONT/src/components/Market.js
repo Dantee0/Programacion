@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './Market.css'
+// import './Market.css'
 
 import { CarsList } from './CarsList'
 // import { SearchBar } from './SearchBar'
@@ -10,7 +10,7 @@ export const Market = () => {
   // const [results, setResults] = useState([]);
 
   return (
-    <div>
+    <div style={{ padding: '100px 0px' }}>
         <h1 className='text-center text-light'>
         <strong>MARKET</strong>
         </h1>
@@ -20,7 +20,7 @@ export const Market = () => {
           <SearchResultsList results={results} />
         </div> */}
 
-        <h2 className='text-light'>Autos disponibles</h2>
+        <h3 className='text-light text-center' style={{ padding: '10px' }}>Autos disponibles</h3>
 
         <CarsList />
     </div>

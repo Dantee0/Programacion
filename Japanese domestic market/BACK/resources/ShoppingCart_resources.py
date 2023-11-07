@@ -35,12 +35,12 @@ class ShoppingCartList(Resource):
 
     def get(self, id):
 
-        user = User.query.get(id)
-        shoppingCarts = ShoppingCart.query.filter_by(user=user).all()
+        user = User.query.get(id) #trae el id del usuario logueado
+        shoppingCarts = ShoppingCart.query.filter_by(user=user).all() #trae todos los elementos del shoppingcart relacionado al id del usuario que está logueado
 
         result = []
         for shoppingCart in shoppingCarts:
-            car = Car.query.get(shoppingCart.carId)
+            car = Car.query.get(shoppingCart.carId) #trae el auto relacionado al id del shoppingcart del usuario logueado
             result.append({
                 'id': car.id,
                 'brand': car.brand,
@@ -52,8 +52,8 @@ class ShoppingCartList(Resource):
         return jsonify(result)
     
     def delete(self, id):
-        car = Car.query.get(id)
-        shoppingCart = ShoppingCart.query.filter_by(car=car).first()
+        car = Car.query.get(id) #trae el id del auto
+        shoppingCart = ShoppingCart.query.filter_by(car=car).first() #elimina del carrito la primer coincidencia con el id del auto 
 
         db.session.delete(shoppingCart)
         db.session.commit()

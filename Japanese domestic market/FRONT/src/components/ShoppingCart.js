@@ -42,8 +42,8 @@ export const ShoppingCart = () => {
     };
 
     return (
-        <div className='text-light'>
-                <h2>Mi carrito</h2>
+        <div className='text-light' style={{ padding: '100px 0px' }}>
+                <h2 className='text-center p-3'>Mi carrito</h2>
                 <div className='row justify-content-center text-center'>
                         <div className='col-md-6'>
                                 {shoppingCarts.length > 0 ? (
@@ -62,7 +62,7 @@ export const ShoppingCart = () => {
                                                     <tbody>
 
                                                             {
-                                                                    shoppingCarts.map(shoppingCart => (
+                                                                    shoppingCarts.map(shoppingCart => ( /* la función map lo q hace es renderizar la tabla */
                                                                             <tr key={shoppingCart.id}>
                                                                                     <td>{shoppingCart.id}</td>
                                                                                     <td>{shoppingCart.brand}</td>

@@ -23,7 +23,7 @@ export const Register = () => {
     try {
       const response = await axios.post('http://localhost:5000/auth/register', values) /* post recibe */
       console.log(response.data)
-      const { role } = response.data
+      const { role, idUser } = response.data /* recibo valores role y id del back */
       console.log('role', role)
       Swal.fire({
         icon: 'success',
@@ -34,7 +34,8 @@ export const Register = () => {
      
       setUser({
         logged: true,
-        role: role
+        role: role,
+        id: idUser
       })
       console.log('Registro exitoso 2 ')
       navigate('/market')

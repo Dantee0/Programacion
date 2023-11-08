@@ -23,8 +23,7 @@ export const Login = () => {
     try {
       const response = await axios.post('http://localhost:5000/auth/login', values)
       console.log(response.data)
-      const { role } = response.data
-      console.log('role', role)
+      const { role, idUser } = response.data /* recibo valores role y id del back */
       Swal.fire({
         icon: 'success',
         title: 'Inicio de sesion correcto',
@@ -33,7 +32,8 @@ export const Login = () => {
       })
       setUser({
         logged: true,
-        role: role
+        role: role,
+        id: idUser
       })
       navigate('/home')
     } catch (error) {

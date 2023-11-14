@@ -1,15 +1,15 @@
-import React from 'react'
-// import Cards from './Cards'
-import Hero from './Hero'
-import { AboutUs } from './AboutUs'
+import React from 'react';
+import Hero from './Hero';
+import { AboutUs } from './AboutUs';
+import { Contact } from './Contact';
 
 
 export const Home = () => {
   return (
     <div>
         <Hero />
-        {/* <Cards /> */}
         <AboutUs />
+        <Contact />
     </div>
   )
 }

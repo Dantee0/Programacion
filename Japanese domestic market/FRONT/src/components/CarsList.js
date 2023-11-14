@@ -10,11 +10,11 @@ export const CarsList = () => {
 
     const [cars, setCars] = useState([]); //useState es un hook, cars es el estado, setCars es la funcion que modifica el estado
 
-    const [editedCar, setEditedCar] = useState({id: 0, model: '', brand: '', description: '', price: 0, availability: true})
+    const [editedCar, setEditedCar] = useState({id: 0, model: '', brand: '', description: '', price: 0, availability: ''})
 
     const navigate = useNavigate();
 
-    useEffect(() => { //este hook renderiza cosas, da vida al componente, useEffect sirve para conectarnos con el exterior, se activa cdo abrimos/se renderiza/se carga el componente
+    useEffect(() => { //este hook renderiza cosas, su funcionalidad es dar vida al componente, useEffect sirve para conectarnos con el exterior, se activa cdo abrimos/se renderiza/se carga el componente
         fetchCar(); //este hook llama al fetch car
       }, []);
 
@@ -30,8 +30,8 @@ export const CarsList = () => {
     };
 
     //Comprar auto
-    const onAddCar = async (carId) => {
-        
+        const onAddCar = async (carId) => {
+            
         const values = { //segun el modelo que tengo, necesito estos valores
             userId: user.id,
             carId: carId
@@ -53,10 +53,10 @@ export const CarsList = () => {
     };
     
     // Eliminar auto
-    const onDeleteCar = async (carId) => {
+    const onDeleteCar = async (carId) => { /* necesita recibir el id pq no trabaja con hook */
         try {
             await axios.delete(`http://localhost:5000/car/${carId}`);
-            fetchCar();
+            fetchCar(); /* refresca */
         } catch (error) {
             console.error(error);
         }
@@ -70,19 +70,30 @@ export const CarsList = () => {
         setEditedCar(car);
     }
 
-    //actualiza los valores modificados del auto
+    //actualiza los valores modificados del auto, el parametro e es del evento
     const handleInputChange = (e) => {
-        console.log('valor de e.target.name', e.target.name)
-        console.log('valor de e.target.value', e.target.value)
-        setEditedCar({ ...editedCar, [e.target.name]: e.target.value});
+        const { name, value } = e.target; /* 'name' y 'value' son las propiedades del objeto 'e.target' que nos interesan */
+        const isTrueSet = value === 'true'; /* 'isTrueSet' y 'isFalseSet' son variables que nos ayudarán a determinar si el nuevo valor es una cadena de texto que representa un booleano */
+        const isFalseSet = value === 'false';
+    
+        setEditedCar((prevState) => ({ /* toma el estado anterior y devuelve un estado nuevo */
+          ...prevState, /* el nuevo estado se crea haciendo una copia del estado anterior */
+          
+            // A continuación, actualizamos la propiedad 'name' con el nuevo valor. 
+            // Si 'isTrueSet' o 'isFalseSet' son verdaderos, significa que el nuevo valor es una cadena de texto que representa un booleano, 
+            // por lo que lo convertimos en un booleano real usando 'value === 'true''
+
+          [name]: isTrueSet || isFalseSet ? value === 'true' : value, 
+        }));
     };
 
     //envia al back los valores modificados del auto
     const handleUpdateCar = async () => {
+        // console.log('values',editedCar)
         try {
-            await axios.put(`http://localhost:5000/car/${editedCar.id}`, editedCar);
-            fetchCar();
-            setEditedCar({id: 0, model: '', brand: '', description: '', price: 0, availability: true});
+            await axios.put(`http://localhost:5000/car/${editedCar.id}`, editedCar); /* pasa por parametro el id del auto q se editó, la variable se está llenando a través del hook, guarda todos los atributos apesar de q se haya editado uno solo */
+            fetchCar(); /* refresca y vuelve a listar, se pide q vuelva a listar pq se cambiaron valores */
+            setEditedCar({id: 0, model: '', brand: '', description: '', price: 0, availability: ''}); /* "limpia" la lista para ir almacenando los nuevos cambios, si no pongo un valor del modelo trae el valor viejo */
             Swal.fire({
                 icon: 'success',
                 title: 'Editado correctamente',
@@ -111,8 +122,9 @@ return (
                             </tr>
                         </thead>
                        <tbody>
-                           {
-                               cars.map(car => (
+                           { 
+                           // la funcion map trae los valores de la base de datos
+                               cars.map(car => ( 
                                    <tr key={car.id}>
                                        <td>{car.brand}</td>
                                        <td>{car.model}</td>
@@ -127,11 +139,11 @@ return (
                                                        <button type="button" className="btn btn-success" onClick={() => onAddCar(car.id)}> Comprar </button>
                                                    </td>
                                                </div>
-                                           // admin puede editar y eliminar
+                                           // admin puede editar(cambia los valores con el hook al hacer click en el boton editar) y eliminar
                                            ):(
                                                <div>
                                                    <td> 
-                                                       <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editCarModal" onClick={() => onEditCar(car)}> Editar </button>
+                                                       <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editCarModal" onClick={() => onEditCar(car)}> Editar </button> 
                                                    </td>
                                                    <td> 
                                                        <button type="button" className="btn btn-danger" onClick={() => onDeleteCar(car.id)}> Eliminar </button>
@@ -144,23 +156,6 @@ return (
                            }  
                         </tbody>
                 </table>
-                {/* <nav aria-label="Page-navigation">
-                    <ul className="pagination justify-content-center">
-                        <li className="page-item">
-                            <a className="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li className="page-item"><a class="page-link" href="#">1</a></li>
-                        <li className="page-item"><a class="page-link" href="#">2</a></li>
-                        <li className="page-item"><a class="page-link" href="#">3</a></li>
-                        <li className="page-item">
-                            <a className="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav> */}
                 <div className='modal fade' id='editCarModal' aria-labelledby='exampleModalLabel' aria-hidden='true'>
                     <div className='modal-dialog'>
                         <div className='modal-content'>
@@ -177,8 +172,8 @@ return (
                                             name='brand' 
                                             className='form-control' 
                                             placeholder='Marca' 
-                                            onChange={handleInputChange} 
-                                            value={editedCar.brand}
+                                            onChange={handleInputChange} /* es evento de edicion de js, onChange llama a la funcion handle input change */
+                                            value={editedCar.brand} /* es el valor q estaba en la tabla */
                                         />
                                     </div>
                                     <div className='col-md-2'></div>
@@ -220,17 +215,21 @@ return (
                                     <div className='col-md-2'></div>
                                     <div className='col-md-4'>
                                         <label>Disponibilidad</label><br></br>
-                                        <input 
-                                            type='text' 
+                                        <select defaultValue={true}
+                                            // type='text' 
                                             name='availability' 
                                             className='form-control' 
-                                            placeholder='Disponibilidad' 
+                                            // placeholder='Disponibilidad' 
                                             onChange={handleInputChange} 
-                                            value={editedCar.availability}
-                                        />
+                                            value={editedCar.availability.toString()} /* es una cadena de texto que representa un booleano*/
+                                            >
+                                                <option value={true}>Disponible</option>
+                                                <option value={false}>Vendido</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
+                            {/* al seleccionar el boton, se envian los datos al endpoint a través de la funcion de handleUpdateCar */}
                             <div className='modal-footer'>
                                 <button type='button' className='btn btn-secondary' data-bs-dismiss='modal'>Cancelar</button>
                                 <button type='button' className='btn btn-success' data-bs-dismiss='modal' onClick={handleUpdateCar}>Guardar</button>
@@ -243,83 +242,3 @@ return (
         </div>
    )
 }
-
-
-
-// export const CarsList = () => {
-//   return (
-//     <div className='mb-50'>
-//         <div className='container text-center'>
-//             <div className='row align-items-center'>
-//                 <div className="Honda-list-group col">
-//                     <h2 className='large-text mb-5'>
-//                         <a href='/honda-for-sale'>
-//                             <strong>Honda Cars For Sale</strong>
-//                             </a>
-//                     </h2>
-//                     <a href='/honda-civic-for-sale' className="list-group-item list-group-item-action">Honda Civic</a>
-//                     <a href='/honda-nsx-for-sale' className="list-group-item list-group-item-action">Honda NSX</a>
-//                     <a href='/honda-cr-x-for-sale' className="list-group-item list-group-item-action">Honda CR-X</a>
-//                 </div>
-
-//                 <div className="Mazda-list-group col">
-//                     <h2 className='large-text mb-5'>
-//                         <a href='/mazda-for-sale'>
-//                             <strong>Mazda Cars For Sale</strong>
-//                         </a>
-//                     </h2>
-//                     <a href='/mazda-eunos-roadster-for-sale' className="list-group-item list-group-item-action">Mazda Eunos Roadster</a>
-//                     <a href='/mazda-cosmo-for-sale' className="list-group-item list-group-item-action">Mazda Cosmo</a>
-//                     <a href='/mazda-rx-7-for-sale' className="list-group-item list-group-item-action">Mazda RX-7</a>
-//                 </div>
-
-//                 <div className="Mitsubishi-list-group col">
-//                     <h2 className='large-text mb-5'>
-//                         <a href='/mitsubishi-for-sale'>
-//                             <strong>Mitsubishi Cars For Sale</strong>
-//                         </a>
-//                     </h2>
-//                     <a href='/mitsubishi-lancer-for-sale' className="list-group-item list-group-item-action">Mitsubishi Lancer</a>
-//                     <a href='/mitsubishi-gto-for-sale' className="list-group-item list-group-item-action">Mitsubishi GTO</a>
-//                     <a href='/mitsubishi-galant-for-sale' className="list-group-item list-group-item-action">Mitsubishi Galant</a>
-//                 </div>
-
-//                 <div className="Nissan-list-group col">
-//                     <h2 className='large-text mb-5'>
-//                         <a href='/nissan-for-sale'>
-//                             <strong>Nissan Cars For Sale</strong>
-//                         </a>
-//                     </h2>
-//                     <a href='/nissan-silvia-for-sale' className="list-group-item list-group-item-action">Nissan Silvia</a>
-//                     <a href='/nissan-skyline-for-sale' className="list-group-item list-group-item-action">Nissan Skyline</a>
-//                     <a href='/nissan-180SX-for-sale' className="list-group-item list-group-item-action">Nissan 180SX</a>
-//                 </div>
-
-//                 <div className="Toyota-list-group col">
-//                     <h2 className='large-text mb-5'>
-//                         <a href='/toyota-for-sale'>
-//                             <strong>Toyota Cars For Sale</strong>
-//                         </a>
-//                     </h2>
-//                     <a href='/toyota-supra-for-sale' className="list-group-item list-group-item-action">Toyota Supra</a>
-//                     <a href='/toyota-sprinter-trueno-for-sale' className="list-group-item list-group-item-action">Toyota Sprinter Trueno</a>
-//                     <a href='/toyota-cresta-for-sale' className="list-group-item list-group-item-action">Toyota Cresta</a>
-//                 </div>
-
-//                 <div className="Subharu-list-group col">
-//                     <h2 className='large-text mb-5'>
-//                         <a href='/subaru-for-sale'>
-//                             <strong>Subaru Cars For Sale</strong>
-//                         </a>
-//                     </h2>
-//                     <a href='/subaru-impreza-for-sale' className="list-group-item list-group-item-action">Subaru Impreza</a>
-//                     <a href='/subaru-legacy-for-sale' className="list-group-item list-group-item-action">Subaru Legacy</a>
-//                     <a href='/subaru-vivio-bistro-for-sale' className="list-group-item list-group-item-action">Subaru Vivio Bistro</a>
-//                 </div>
-//             </div>
-//         </div>
-//     </div>
-//   )
-// }
-
-// mazda cosmo 1968

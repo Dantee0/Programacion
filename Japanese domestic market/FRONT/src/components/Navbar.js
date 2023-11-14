@@ -36,9 +36,6 @@ export const Navbar = () => {
                 // administrador
                 user.role === '1' ? (
                     <ul className="navbar-nav ms-auto">
-                        {/* <li className="nav-item">
-                            <Link className="nav-item" exact='true' to="/myPosts">Publicaciones</Link>
-                        </li> */}
                         <li className="nav-item">
                             <Link className="nav-link active" exact='true' to="/addCar">Añadir Auto</Link>
                         </li>
@@ -54,12 +51,6 @@ export const Navbar = () => {
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item">
                             <Link className="nav-link active" exact='true' to="/market">Mercado</Link>
-                        </li>
-                        {/* <li className="nav-item">
-                            <Link className="nav-link active" exact='true' to="/addCar">Añadir Auto</Link>
-                        </li> */}
-                        <li className="nav-item">
-                            <Link className="nav-link active" exact='true' to="/myPosts">Mis publicaciones</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link active" exact='true' to="/shoppingCart">Mis compras</Link>
